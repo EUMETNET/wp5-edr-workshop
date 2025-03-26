@@ -1,4 +1,6 @@
 # For developing:    uvicorn main:app --reload
+from __future__ import annotations
+
 import logging
 
 import uvicorn

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from datetime import timezone
 
@@ -7,17 +9,8 @@ from pydantic import AwareDatetime
 from pydantic import TypeAdapter
 
 
-def create_url_from_request(request):
-    # root_path should contain the base path used by a reverse proxy to serve the API. The value of root_path
-    # can be added as parameter to FastAPI() in main.py. By default it is empty.
-    base_path = request.scope.get("root_path")
-
-    # The hostname and scheme (http or https) will (should) be correctly set
-    # from the X-Forwarded-Host and X-Forwarded-Scheme headers by a reverse proxy in front of the API
-    host = request.headers["host"]
-    scheme = request.url.scheme
-
-    return f"{scheme}://{host}{base_path}/collections"
+def create_url_from_request(request) -> str:
+    return str(request.base_url) + "collections"
 
 
 def split_string_parameters_to_list(value: str) -> list[str]:

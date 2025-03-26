@@ -1,4 +1,6 @@
 # For developing:    uvicorn main:app --reload
+from __future__ import annotations
+
 import logging
 
 import uvicorn
@@ -43,6 +45,8 @@ app.add_middleware(BrotliMiddleware)
     response_model_exclude_none=True,
 )
 async def landing_page(request: Request) -> LandingPageModel:
+    url = str(request.url)
+
     return LandingPageModel(
         title="EDR tutorial",
         description="A simple example EDR implementation",
@@ -50,11 +54,11 @@ async def landing_page(request: Request) -> LandingPageModel:
         provider=Provider(name="RODEO", url="https://rodeo-project.eu/"),
         contact=Contact(email="rodeoproject@fmi.fi"),
         links=[
-            Link(href=f"{request.url}", rel="self", title="Landing Page in JSON"),
-            Link(href=f"{request.url}docs", rel="service-desc", title="API description in HTML"),
-            Link(href=f"{request.url}openapi.json", rel="service-desc", title="API description in JSON"),
-            Link(href=f"{request.url}conformance", rel="data", title="Conformance Declaration in JSON"),
-            Link(href=f"{request.url}collections", rel="data", title="Collections metadata in JSON"),
+            Link(href=url, rel="self", title="Landing Page in JSON"),
+            Link(href=url + "docs", rel="service-desc", title="API description in HTML"),
+            Link(href=url + "openapi.json", rel="service-desc", title="API description in JSON"),
+            Link(href=url + "conformance", rel="data", title="Conformance Declaration in JSON"),
+            Link(href=url + "collections", rel="data", title="Collections metadata in JSON"),
         ],
     )
 

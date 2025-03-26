@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import logging
 from typing import Annotated
 
-from covjson_pydantic.coverage import Coverage
 from covjson_pydantic.coverage import CoverageCollection
 from covjson_pydantic.parameter import Parameter
 from edr_pydantic.parameter import EdrBaseModel
@@ -56,18 +57,18 @@ async def get_locations(
 @router.get(
     "/locations/{location_id}",
     tags=["Collection data queries"],
-    response_model=Coverage,
+    response_model=CoverageCollection,
     response_model_exclude_none=True,
     response_class=CoverageJsonResponse,
 )
 async def get_data_location_id(
-    location_id: Annotated[str, Path(example="06260")],
+    location_id: Annotated[str, Path(example="0-20000-0-06260")],
     parameter_name: Annotated[
         str | None,
         Query(alias="parameter-name", description="Comma seperated list of parameter names.", example="ff, dd"),
     ] = None,
     datetime: Annotated[str | None, Query(example="2024-02-22T01:00:00Z/2024-02-22T02:00:00Z")] = None,
-) -> Coverage:
+) -> CoverageCollection:
     pass
 
 
@@ -85,5 +86,5 @@ async def get_data_area(
         Query(alias="parameter-name", description="Comma seperated list of parameter names.", example="ff, dd"),
     ] = None,
     datetime: Annotated[str | None, Query(example="2024-02-22T01:00:00Z/2024-02-22T02:00:00Z")] = None,
-):
+) -> CoverageCollection:
     pass

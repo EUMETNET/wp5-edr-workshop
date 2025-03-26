@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 from functools import cache
 
@@ -47,7 +49,7 @@ def get_collection_metadata(base_url: str, is_self) -> Collection:
     collection = Collection(
         id="observations",
         links=[
-            Link(href=f"{base_url}/observations", rel="self" if is_self else "data"),
+            Link(href=base_url + "/observations", rel="self" if is_self else "data"),
         ],
         extent=Extent(
             spatial=Spatial(
@@ -63,14 +65,14 @@ def get_collection_metadata(base_url: str, is_self) -> Collection:
         data_queries=DataQueries(
             locations=EDRQuery(
                 link=EDRQueryLink(
-                    href=f"{base_url}/observations/locations",
+                    href=base_url + "/observations/locations",
                     rel="data",
                     variables=Variables(query_type="locations", output_format=["CoverageJSON"]),
                 )
             ),
             area=EDRQuery(
                 link=EDRQueryLink(
-                    href=f"{base_url}/observations/area",
+                    href=base_url + "/observations/area",
                     rel="data",
                     variables=Variables(query_type="area", output_format=["CoverageJSON"]),
                 )

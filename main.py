@@ -34,9 +34,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-app = FastAPI(
-    title="RODEO WP5 EDR workshop", swagger_ui_parameters={"defaultModelsExpandDepth": -1, "tryItOutEnabled": True}
-)
+app = FastAPI(title="EDR workshop", swagger_ui_parameters={"defaultModelsExpandDepth": -1, "tryItOutEnabled": True})
 app.add_middleware(BrotliMiddleware)
 
 
